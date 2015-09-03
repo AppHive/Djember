@@ -1,0 +1,26 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+form input[type="button"]{
+    display: block;
+}
+
+form input {
+    width: 70%;
+    height: 1.2cm;
+    margin: 24px auto 0 auto;
+    display: block;
+}
+
+form input[type="text"],
+input[type="number"]{
+    border: 0;
+    padding-left: 12px;
+    border-radius: 5px;
+}
+
+.container{
+    max-width: 100%;
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    {% load staticfiles %}
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}" />
+</head>
+<body>
+        <script type="text/x-handlebars">
+            {% verbatim %}
+                <div class="container">
+                     <header>
+                        <nav class="navbar navbar-default">
+                            <div class="container-fluid">
+                              <div class="navbar-header">
+                                <a class="navbar-brand" href="#">Djember sample app</a>
+                              </div>
+                              <ul class="nav navbar-nav navbar-right">
+                                <li>{{#link-to 'proveedores'}}Proveedores{{/link-to}}</li>
+                              </ul>
+                            </div>
+                        </nav>
+                     </header>
+                     {{outlet}}
+                {% endverbatim %}
+            </div>
+        </script>
+        <script type="text/x-handlebars" id="index">
+            {% verbatim %}
+                <section id="hero">
+                     <div class="well">
+                         <h1>Inventario de tienda</h1>
+                         <p>Aplicación de prueba para integrar Ember JS con Django y REST Framework</p>
+                     </div>
+                </section>
+                <section id="main">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <table class="table table-striped">
+                                    <tbody>
+                                        {{#each model as | item index | }}
+                                           <tr id="{{ item.id }}">
+                                                <td> {{ item.nombre }} </td>
+                                                <td> {{ item.cantidad }} </td>
+                                           </tr>
+                                        {{/each }}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div id="form-holder" class="well">
+                                    <form name="frm-operaciones" id="frm-operaciones">
+                                        <input list="lst-productos" type="text" placeholder="Producto a comprar" id="txt-compra" name="txt-compra" required/>
+                                        <datalist id="lst-productos">
+                                            <option value="Camisas Hombre"/>
+                                            <option value="Camisas Niño"/>
+                                            <option value="Blusas"/>
+                                            <option value="Zapatos de mujer"/>
+                                            <option value="Tennis"/>
+                                        </datalist>
+                                        <input type="number" id="txt-cantidad" name="txt-cantidad" placeholder="Cantidad de unidades" min="1" required/>
+                                        <input type="button" {{ action "actualizarInventario" }} class="btn btn-primary" value="Simular Compra" id="btn-compra"/>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endverbatim %}
+        </script>
+        <script type="text/x-handlebars" id="proveedores">
+            {% verbatim %}
+                <div class="well">
+                    <h1>Directorio de proveedores</h1>
+                    <p>Seleccione un proveedor de la lista para ver detalles</p>
+                </div>
+                <section id="content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="list-group">
+                                  {{#each model as |item index| }}
+                                    <button type="button" class="list-group-item">{{#link-to 'proveedores.descripcion' item.index}} {{item.nombre}} {{/link-to}}</button>
+                                  {{/each }}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                {{ outlet }}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endverbatim %}
+        </script>
+        <script type="text/x-handlebars" id="proveedores/descripcion">
+            {% verbatim %}
+                <div class="well">
+                    <h1>{{model.nombre}}</h1>
+                    <p>{{ model.descripcion }}</p>
+                    <p>Telefono: {{ model.tel }}</p>
+                    <p>contacto: {{ model.email }}</p>
+                </div>
+            {% endverbatim %}
+        </script>
+</body>
+{% load staticfiles %}
+<script language="javascript" src="{% static 'js/jquery.min.js'%}"></script>
+<script language="javascript" src="{% static 'js/handlebars.min.js'%}"></script>
+<script language="javascript" src="{% static 'js/ember-template-compiler.js'%}"></script>
+<script language="javascript" src="{% static 'js/ember.min.js'%}"></script>
+<script language="javascript" src="{% static 'js/app.js'%}"></script>
+<script language="javascript" src="{% static 'js/csrf.js'%}"></script>
+</html>
